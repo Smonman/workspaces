@@ -205,28 +205,7 @@ class PageableSelection:
         print(leftHint, "   ", rightHint)
 
 
-workspaces = [
-    Workspace("STAWA",
-              URLs=["https://tuwel.tuwien.ac.at/course/view.php?id=40248",
-                    "https://vowi.fsinf.at/wiki/TU_Wien:Statistik_und_Wahrscheinlichkeitstheorie_UE_(Bura)#Attachments"],
-              files=["C:/Users/smonm/Dropbox/TU Wien/3 Semester/STAWA"]),
-
-    Workspace("DBS",
-              URLs=["https://www.overleaf.com/project",
-                    "https://tuwel.tuwien.ac.at/course/view.php?id=40170#section-5"],
-              files=["C:/Users/smonm/Downloads/Blatt_3.pdf"]),
-
-    Workspace("TIL",
-              URLs=["https://www.overleaf.com/project",
-                    "https://tuwel.tuwien.ac.at/course/view.php?id=42039#section-3"],
-              files=["C:/Users/smonm/Downloads/til-PL_Semantik_Formalisieren-20.pdf",
-                     "C:/Users/smonm/Downloads/til-Syntax_vs_Semantik-WS21.pdf"]),
-
-    Workspace("OOP",
-              URLs=["https://tuwel.tuwien.ac.at/course/view.php?id=41139#section-2",
-                    "https://tuwel.tuwien.ac.at/pluginfile.php/2719128/mod_resource/content/2/skript21-1seitig.pdf"],
-              programs=["F:/Programms_/IntelliJUltimate/bin/idea64.exe"])
-]
+workspaces = []
 """
 This is the array of set workspaces
 

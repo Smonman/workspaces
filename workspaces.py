@@ -209,7 +209,7 @@ def main():
     This is the array of set workspaces
 
     If you want to add one, just add it to test list by calling
-        Workspace("", URLs=[], files=[], programs=[])
+        Workspace("", urls=[], files=[], programs=[])
     Fill in the parameters as needed:
         Workspace("Title of the workspace",
             urls=[array of urls],

@@ -12,7 +12,7 @@ Go to the directory where `workspaces.py` is stored:
 python workspaces.py
 ```
 
-#### With an instalation
+#### With an installation
 You can just call workspaces from any directory
 ```
 workspaces

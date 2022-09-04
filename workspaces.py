@@ -6,25 +6,24 @@ Upon starting this program will show a list of set workspaces.
 Using the commandline input the use can specify the workspaces by typing
 in the corresponding index.
 If the user wishes to open multiple different workspaces, just write the input
-simultaniously.
+simultaneously.
 
 For example if one wishes to open the workspace 1 and 3, just type in
 13, the program will split the input char by char and evaluate it
 individually.
 
-If the amount of worcspaces exceeds the 10 this program will automatically
+If the amount of workspaces exceeds the 10 this program will automatically
 create pages and the ability to flip between them.
 
-Known issue: one can only select workspaces from the same page
+Known limitation: one can only select workspaces from the same page
 """
 
-import webbrowser
-import os
-import math
 import itertools
+import math
+import os
+import webbrowser
 
 __author__ = "Simon Josef Kreuzpointner"
-__version__ = "2.1"
 
 
 class Workspace:
@@ -32,10 +31,10 @@ class Workspace:
     This class represents a workspace
 
     A workspace consists of a collection of files, websites
-    and programs that are needed in a specific worksetting.
+    and programs that are needed in a specific work setting.
 
     Calling open() on a workspace opens all the given files, websites
-    and programs so the enduser does not need to open these by
+    and programs so the end user does not need to open these by
     themselves.
 
     Attributes
@@ -49,14 +48,14 @@ class Workspace:
         opens the workspace
     """
 
-    def __init__(self, title, URLs=None, files=None, programs=None):
+    def __init__(self, title, urls=None, files=None, programs=None):
         """
         Parameters
         ----------
         title : str
             the title of the workspace
-        URLs : str[] optional
-            an array of URLs to be opend
+        urls : str[] optional
+            an array of URLs to be opened
         files : str[] optional
             an array of file or directory paths
         programs : str[] optional
@@ -64,7 +63,7 @@ class Workspace:
         """
 
         self.title = title
-        self.__URLs = URLs
+        self.__urls = urls
         self.__files = files
         self.__programs = programs
 
@@ -72,31 +71,31 @@ class Workspace:
         """
         This function opens the workspace.
 
-        This means all the given Urls are opend first.
-        Every URL will be opend in a new tab on the system default webbrowser.
-        This will not check if the site is already opend.
+        This means all the given Urls are opened first.
+        Every URL will be opened in a new tab on the system default web browser.
+        This will not check if the site is already opened.
 
         Second, it will open all the given files using the system default
-        file-open-action. If the given file is directory it will be opend
+        file-open-action. If the given file is directory it will be opened
         on the Windows Explorer.
 
-        At last all the given programms will be opend. This program
+        At last all the given programs will be opened. This program
         simulates a double click on the specified programs.
         """
-        self.__openUrls()
-        self.__openFiles()
-        self.__startPrograms()
+        self.__open_urls()
+        self.__open_files()
+        self.__start_programs()
 
-    def __openUrls(self):
-        if self.__URLs == None:
+    def __open_urls(self):
+        if self.__urls is None:
             return
 
         print("Opening URLs...")
-        for url in self.__URLs:
+        for url in self.__urls:
             webbrowser.open(url, new=2)
 
-    def __openFiles(self):
-        if self.__files == None:
+    def __open_files(self):
+        if self.__files is None:
             return
 
         print("Opening files...")
@@ -106,8 +105,8 @@ class Workspace:
             elif os.path.isdir(f):
                 os.startfile(f, operation="explore")
 
-    def __startPrograms(self):
-        if self.__programs == None:
+    def __start_programs(self):
+        if self.__programs is None:
             return
 
         print("Starting programs...")
@@ -125,27 +124,27 @@ class PageableSelection:
 
     Attributes
     ----------
-    curPage : int
+    cur_page : int
         This is the index of the current page, starting at 0
-    pageSize : int
-        This is the amount if items one page displays
-    pageCount : int
+    page_size : int
+        This is the amount if items one-page displays
+    page_count : int
         The number of pages
 
     Methods
     -------
     displaySelection()
         This method displays the selection and handles the input.
-        It returns the indecies of the selection made or None on error.
+        It returns the indices of the selection made or None on error.
     """
 
     def __init__(self, array):
         self.__array = array
-        self.curPage = 0
-        self.pageSize = 10
-        self.pageCount = math.ceil((len(self.__array) - 1) / self.pageSize) - 1
+        self.cur_page = 0
+        self.page_size = 10
+        self.page_count = math.ceil((len(self.__array) - 1) / self.page_size) - 1
 
-    def displaySelection(self):
+    def display_selection(self):
         """
         This function displays the selection on different pages
 
@@ -156,53 +155,52 @@ class PageableSelection:
         os.system('cls')
         intro()
 
-        pageStartIndex = self.curPage * self.pageSize
-        pageEndIndex = min(pageStartIndex + self.pageSize,
-                           len(self.__array))
+        page_start_index = self.cur_page * self.page_size
+        page_end_index = min(page_start_index + self.page_size, len(self.__array))
 
         # added 1 for better readability
-        print("Page", self.curPage + 1, "/", self.pageCount + 1)
-        self.__printHints()
+        print("Page", self.cur_page + 1, "/", self.page_count + 1)
+        self.__print_hints()
 
         i = 0
-        for w in itertools.islice(self.__array, pageStartIndex, pageEndIndex):
+        for w in itertools.islice(self.__array, page_start_index, page_end_index):
             print(i, ") ", w.title, sep="")
             i = i + 1
 
         selection = input()
 
         if selection == "+":
-            self.curPage = min(self.curPage + 1, self.pageCount)
-            return self.displaySelection()
+            self.cur_page = min(self.cur_page + 1, self.page_count)
+            return self.display_selection()
 
         if selection == "-":
-            self.curPage = max(self.curPage - 1, 0)
-            return self.displaySelection()
+            self.cur_page = max(self.cur_page - 1, 0)
+            return self.display_selection()
 
-        indecies = []
+        indices = []
         for c in selection:
             try:
                 index = int(c)
-                index = index + self.pageSize * self.curPage
+                index = index + self.page_size * self.cur_page
             except ValueError:
                 return None
 
-            indecies.append(index)
+            indices.append(index)
 
-        return indecies
+        return indices
 
-    def __printHints(self):
-        if self.curPage > 0:
-            leftHint = "<< -"
+    def __print_hints(self):
+        if self.cur_page > 0:
+            left_hint = "<< -"
         else:
-            leftHint = "    "
+            left_hint = "    "
 
-        if self.curPage < self.pageCount:
-            rightHint = "+ >>"
+        if self.cur_page < self.page_count:
+            right_hint = "+ >>"
         else:
-            rightHint = "    "
+            right_hint = "    "
 
-        print(leftHint, "   ", rightHint)
+        print(left_hint, "   ", right_hint)
 
 
 workspaces = []
@@ -212,10 +210,13 @@ This is the array of set workspaces
 If you want to add one, just add it to test list by calling
     Workspace("", URLs=[], files=[], programs=[])
 Fill in the parameters as needed:
-    Workspace("Title of the workspace", URLs=[array of urls], files=[array of directories, or files], programs=[array of programs])
+    Workspace("Title of the workspace",
+        urls=[array of urls],
+        files=[array of directories, or files],
+        programs=[array of programs])
 
 Also note, that the paths should only contain forward slashes. If copying a windows file path
-the default are backslashed. Replace them with forward slashes.
+the default are backslashes. Replace them with forward slashes.
 This can be done by using Ctrl-F to find and replace these characters.
 """
 
@@ -223,14 +224,14 @@ ps = PageableSelection(workspaces)
 
 
 def main():
-    indecies = ps.displaySelection()
+    indices = ps.display_selection()
 
-    if indecies == None:
+    if indices is None:
         os.system('cls')
-        print("An error ocurred.")
+        print("An error occurred.")
         main()
 
-    for index in indecies:
+    for index in indices:
         if index < 0 or index >= len(workspaces):
             os.system('cls')
             print(
@@ -242,13 +243,15 @@ def main():
 
 def intro():
     print(
-        " _       __           __                                  \n",
-        "| |     / /___  _____/ /___________  ____ _________  _____\n",
-        "| | /| / / __ \/ ___/ //_/ ___/ __ \/ __ `/ ___/ _ \/ ___/\n",
-        "| |/ |/ / /_/ / /  / ,< (__  ) /_/ / /_/ / /__/  __(__  ) \n",
-        "|__/|__/\____/_/  /_/|_/____/ .___/\__,_/\___/\___/____/  \n",
-        "                           /_/                            \n", sep="")
-    print("Select on of these workspaces by typing in the corresponding number, select more by concatinating your choices.\n")
+        " _       __           __                                  ",
+        "| |     / /___  _____/ /___________  ____ _________  _____",
+        "| | /| / / __ \/ ___/ //_/ ___/ __ \/ __ `/ ___/ _ \/ ___/",
+        "| |/ |/ / /_/ / /  / ,< (__  ) /_/ / /_/ / /__/  __(__  ) ",
+        "|__/|__/\____/_/  /_/|_/____/ .___/\__,_/\___/\___/____/  ",
+        "                           /_/                            ", sep="\n")
+    print(
+        "Select on of these workspaces by typing in the corresponding number, " +
+        "select more by concatenating your choices.\n")
 
 
 if __name__ == "__main__":

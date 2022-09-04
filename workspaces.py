@@ -203,37 +203,35 @@ class PageableSelection:
         print(left_hint, "   ", right_hint)
 
 
-workspaces = []
-"""
-This is the array of set workspaces
-
-If you want to add one, just add it to test list by calling
-    Workspace("", URLs=[], files=[], programs=[])
-Fill in the parameters as needed:
-    Workspace("Title of the workspace",
-        urls=[array of urls],
-        files=[array of directories, or files],
-        programs=[array of programs])
-
-Also note, that the paths should only contain forward slashes. If copying a windows file path
-the default are backslashes. Replace them with forward slashes.
-This can be done by using Ctrl-F to find and replace these characters.
-"""
-
-ps = PageableSelection(workspaces)
-
-
 def main():
+    workspaces = []
+    """
+    This is the array of set workspaces
+
+    If you want to add one, just add it to test list by calling
+        Workspace("", URLs=[], files=[], programs=[])
+    Fill in the parameters as needed:
+        Workspace("Title of the workspace",
+            urls=[array of urls],
+            files=[array of directories, or files],
+            programs=[array of programs])
+
+    Also note, that the paths should only contain forward slashes. If copying a windows file path
+    the default are backslashes. Replace them with forward slashes.
+    This can be done by using Ctrl-F to find and replace these characters.
+    """
+
+    ps = PageableSelection(workspaces)
     indices = ps.display_selection()
 
     if indices is None:
-        os.system('cls')
+        clear_screen()
         print("An error occurred.")
         main()
 
     for index in indices:
         if index < 0 or index >= len(workspaces):
-            os.system('cls')
+            clear_screen()
             print(
                 "The given input was out of range.\n")
             main()
@@ -252,6 +250,13 @@ def intro():
     print(
         "Select on of these workspaces by typing in the corresponding number, " +
         "select more by concatenating your choices.\n")
+
+
+def clear_screen():
+    if os.name == "nt":
+        os.system("cls")
+    else:
+        os.system("clear")
 
 
 if __name__ == "__main__":

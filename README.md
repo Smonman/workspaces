@@ -7,15 +7,15 @@ This program opens previously specified workspaces, which can include websites, 
 ### How to start the program
 
 #### Without an installation
-Go to the directory where lightremote.py is stored:
+Go to the directory where `workspaces.py` is stored:
 ```
-python lightremote.py
+python workspaces.py
 ```
 
 #### With an instalation
-You can just call lightremote from any directory
+You can just call workspaces from any directory
 ```
-lightremote
+workspaces
 ```
 
 ## Installation

@@ -19,9 +19,12 @@ workspaces
 ```
 
 ## Installation
-Go to the downloaded directory, and place it where you want it to be installed.
 ```
 python setup.py install
+```
+or go to the directory and type
+```
+pip install .
 ```
 
 ## Deinstallation

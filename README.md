@@ -13,7 +13,7 @@ python workspaces.py
 ```
 
 #### With an installation
-You can just call workspaces from any directory
+You can just call `workspaces` from any directory
 ```
 workspaces
 ```
@@ -22,4 +22,10 @@ workspaces
 Go to the downloaded directory, and place it where you want it to be installed.
 ```
 python setup.py install
+```
+
+## Deinstallation
+To uninstall `workspaces` just type
+```
+pip uninstall workspaces
 ```

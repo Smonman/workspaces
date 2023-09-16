@@ -152,7 +152,7 @@ class PageableSelection:
         curPage holds.
         """
 
-        os.system('cls')
+        clear_screen()
         intro()
 
         page_start_index = self.cur_page * self.page_size
